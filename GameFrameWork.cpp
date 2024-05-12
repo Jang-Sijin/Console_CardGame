@@ -1,4 +1,5 @@
-#include "GameFrameWork.h"
+ï»¿#include "GameFrameWork.h"
+using namespace std;
 
 static Card g_Card{};
 static User g_User{};
@@ -6,7 +7,9 @@ static Computer g_Computer{};
 
 void GameFrameWork::Start()
 {
-	cout << "[°ÔÀÓÀ» ½ÃÀÛÇÕ´Ï´Ù.]" << endl;	
+	cout << "[ê²Œì„ì„ ì‹œì‘í•©ë‹ˆë‹¤.]" << endl;	
+
+	srand(time(NULL));
 
 	// g_Card.AllPrint();
 	g_Card.AllCardShuffle();
@@ -17,103 +20,167 @@ void GameFrameWork::Start()
 }
 
 void GameFrameWork::Update()
-{		
+{			
+
 	while (true)
 	{
-		cout << turn << "¹øÂ° ÅÏÀÔ´Ï´Ù." << endl;
-		g_Card.PrintCard(g_Card.GetNumberCard(), MAX_COUNT_CARD_NUMBER);
+		cout << turn << "ë²ˆì§¸ í„´ì…ë‹ˆë‹¤." << endl;	
+
+		int input_index{};
+		int get_card_number{};
+		char get_card_operator{};
+		int input_money{};
 
 		switch (turn)
 		{
 		case Turn::INIT:
-			// [1ÅÏ]
-			cout << "¼±ÅÃ °¡´ÉÇÑ 1~10¹ø Ä«µå¸¦ ¼±ÅÃÇØ ÁÖ¼¼¿ä: " << endl;
+			// [1í„´]
+			g_Card.PrintCard(g_Card.GetNumberCard(), MAX_COUNT_CARD_NUMBER);
+			cout << "ì„ íƒ ê°€ëŠ¥í•œ 1~10ë²ˆ ì¹´ë“œë¥¼ ì„ íƒí•´ ì£¼ì„¸ìš”: " << endl;
+			// í”Œë ˆì´ì–´ê°€ ìˆ«ì ì¹´ë“œ ì¸ë±ìŠ¤ë¥¼ ì„ íƒí•œë‹¤. (ë½‘ì€ ì¹´ë“œ ì œì™¸)			
+			if (!(cin >> input_index) || input_index < MIN_COUNT_CARD_NUMBER || input_index > MAX_COUNT_CARD_NUMBER)
+			{
+				cout << "ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤." << endl;
+				cin.clear(); // ìŠ¤íŠ¸ë¦¼ ìƒíƒœ ì´ˆê¸°í™”
+				cin.ignore(numeric_limits<streamsize>::max(), '\n'); // ë²„í¼ ë¹„ìš°ê¸°
+				continue;
+			}
+			// Debug -> 			
+			//get_card_number = g_Card.SelectNumberCard(input_index);
 
-			// ´ÙÀ½ ÅÏÀ¸·Î ³Ñ±â±â
+			if (get_card_number)
+			{
+				cout << get_card_number << endl;
+				g_User.SelectGetCard(turn, get_card_number);
+			}
+			else
+			{
+				cout << "ì´ë¯¸ ì„ íƒëœ ì¹´ë“œì…ë‹ˆë‹¤. ë‹¤ë¥¸ ì¹´ë“œë¥¼ ì„ íƒí•´ ì£¼ì„¸ìš”." << endl;
+			}
+			// ë‹¤ìŒ í„´ìœ¼ë¡œ ë„˜ê¸°ê¸°
 			turn++;
 			break;
 		case Turn::SECOND:
+			// [3í„´]
+			g_Card.PrintCard(g_Card.GetOperatorCard(), MAX_COUNT_CARD_OPERATOR);
+			// í”Œë ˆì´ì–´ê°€ ìˆ«ì ì¹´ë“œ ì¸ë±ìŠ¤ë¥¼ ì„ íƒí•œë‹¤. (ë½‘ì€ ì¹´ë“œ ì œì™¸)			
+			if (!(cin >> input_index) || input_index < MIN_COUNT_CARD_OPERATOR || input_index > MAX_COUNT_CARD_OPERATOR)
+			{
+				cout << "ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤." << endl;
+				cin.clear(); // ìŠ¤íŠ¸ë¦¼ ìƒíƒœ ì´ˆê¸°í™”
+				cin.ignore(numeric_limits<streamsize>::max(), '\n'); // ë²„í¼ ë¹„ìš°ê¸°
+				continue;
+			}
+			// Debug -> 			
+			// get_card_operator = g_Card.SelectOperatorCard(input_index);
 
-			// ´ÙÀ½ ÅÏÀ¸·Î ³Ñ±â±â
+			if (get_card_operator)
+			{
+				cout << get_card_operator << endl;
+				g_User.SelectGetCard(turn, get_card_operator);
+			}
+			else
+				cout << "ì´ë¯¸ ì„ íƒëœ ì¹´ë“œì…ë‹ˆë‹¤. ë‹¤ë¥¸ ì¹´ë“œë¥¼ ì„ íƒí•´ ì£¼ì„¸ìš”." << endl;
+			// ë‹¤ìŒ í„´ìœ¼ë¡œ ë„˜ê¸°ê¸°
+			
+			cout << "ë°°íŒ…í•  ê¸ˆì•¡ì„ ì…ë ¥í•˜ì„¸ìš”: ";			
+			if (!(cin >> input_money))
+			{
+				cout << "ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤." << endl;
+				cin.clear(); // ìŠ¤íŠ¸ë¦¼ ìƒíƒœ ì´ˆê¸°í™”
+				cin.ignore(numeric_limits<streamsize>::max(), '\n'); // ë²„í¼ ë¹„ìš°ê¸°
+				continue;
+			}
+			g_User.InputBettingMoney(input_money, total_betting_money); // ì…ë ¥í•œ ê¸ˆì•¡ì„ ë„˜ê²¨ì¤€ë‹¤. // ì†Œì§€í•˜ê³  ìˆëŠ” ê¸ˆì•¡ë³´ë‹¤ ë†’ìœ¼ë©´ ë°°íŒ… ê°€ëŠ¥
+				
+			g_Computer.SelectGetCard(turn, (rand() % 10) + 1);
+			g_Computer.InputBettingMoney(1000, total_betting_money);
+
 			turn++;
 			break;
 		case Turn::THIRD:
+			// [1í„´]
+			g_Card.PrintCard(g_Card.GetNumberCard(), MAX_COUNT_CARD_NUMBER);
+			cout << "ì„ íƒ ê°€ëŠ¥í•œ 1~10ë²ˆ ì¹´ë“œë¥¼ ì„ íƒí•´ ì£¼ì„¸ìš”: " << endl;
+			// í”Œë ˆì´ì–´ê°€ ìˆ«ì ì¹´ë“œ ì¸ë±ìŠ¤ë¥¼ ì„ íƒí•œë‹¤. (ë½‘ì€ ì¹´ë“œ ì œì™¸)			
+			if (!(cin >> input_index) || input_index < MIN_COUNT_CARD_NUMBER || input_index > MAX_COUNT_CARD_NUMBER)
+			{
+				cout << "ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤." << endl;
+				cin.clear(); // ìŠ¤íŠ¸ë¦¼ ìƒíƒœ ì´ˆê¸°í™”
+				cin.ignore(numeric_limits<streamsize>::max(), '\n'); // ë²„í¼ ë¹„ìš°ê¸°
+				continue;
+			}
+			// Debug -> 			
+			// get_card_number = g_Card.SelectNumberCard(input_index);
 
-			// ´ÙÀ½ ÅÏÀ¸·Î ³Ñ±â±â
+			if (get_card_number)
+			{
+				cout << get_card_number << endl;
+				g_User.SelectGetCard(turn, get_card_number);
+			}
+			else
+			{
+				cout << "ì´ë¯¸ ì„ íƒëœ ì¹´ë“œì…ë‹ˆë‹¤. ë‹¤ë¥¸ ì¹´ë“œë¥¼ ì„ íƒí•´ ì£¼ì„¸ìš”." << endl;
+			}
+			// ë‹¤ìŒ í„´ìœ¼ë¡œ ë„˜ê¸°ê¸°
 			turn++;
 			break;
 		case Turn::FINAL:
 
-			// ÃÖÃÊ ÅÏÀ¸·Î ÀÌµ¿
+			// ìµœì´ˆ í„´ìœ¼ë¡œ ì´ë™
 			turn = Turn::INIT;
 			break;
 		default:
-			cout << "SelectCard Áß turn °ª ¿À·ù ¹ß»ı" << endl;
-		}
-		
-		// ÇÃ·¹ÀÌ¾î°¡ ¼ıÀÚ Ä«µå ÀÎµ¦½º¸¦ ¼±ÅÃÇÑ´Ù. (»ÌÀº Ä«µå Á¦¿Ü)
-		int input_index{};
-		if (!(cin >> input_index) || input_index < MIN_COUNT_CARD_NUMBER || input_index < MAX_COUNT_CARD_NUMBER)
-		{
-			cout << "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù." << endl;
-			cin.clear(); // ½ºÆ®¸² »óÅÂ ÃÊ±âÈ­
-			cin.ignore(numeric_limits<streamsize>::max(), '\n'); // ¹öÆÛ ºñ¿ì±â
-			continue;
-		}
-		int get_card_number = g_Card.SelectNumberCard(input_index);
+			cout << "SelectCard ì¤‘ turn ê°’ ì˜¤ë¥˜ ë°œìƒ" << endl;
+		}		
+		// í”Œë ˆì´ì–´ê°€ ìˆ«ì ì¹´ë“œë¥¼ íšë“í•œë‹¤.
+		// í”Œë ˆì´ì–´ê°€ ë½‘ì€ ìˆ«ì ì¹´ë“œì˜ ë²ˆí˜¸ë¥¼ ì¶œë ¥í•œë‹¤.		
+		// í”Œë ˆì´ì–´ê°€ ë°°íŒ…í•  ê¸ˆì•¡ì„ ì…ë ¥í•œë‹¤.
 
-		if (!get_card_number)
-			SelectGetCard(turn, get_card_number);
-		else
-			cout << "ÀÌ¹Ì ¼±ÅÃµÈ Ä«µåÀÔ´Ï´Ù. ´Ù¸¥ Ä«µå¸¦ ¼±ÅÃÇØ ÁÖ¼¼¿ä." << endl;
-		// ÇÃ·¹ÀÌ¾î°¡ ¼ıÀÚ Ä«µå¸¦ È¹µæÇÑ´Ù.
-		// ÇÃ·¹ÀÌ¾î°¡ »ÌÀº ¼ıÀÚ Ä«µåÀÇ ¹øÈ£¸¦ Ãâ·ÂÇÑ´Ù.		
-		// ÇÃ·¹ÀÌ¾î°¡ ¹èÆÃÇÒ ±İ¾×À» ÀÔ·ÂÇÑ´Ù.
+		// ì»´í“¨í„°ê°€ ìˆ«ì ì¹´ë“œ ì¸ë±ìŠ¤ë¥¼ ì„ íƒí•œë‹¤. (ë½‘ì€ ì¹´ë“œ ì œì™¸)
+		// ì»´í“¨í„°ê°€ ìˆ«ì ì¹´ë“œë¥¼ íšë“í•œë‹¤.
+		// ì»´í“¨í„°ê°€ ë°°íŒ…í•  ê¸ˆì•¡ì„ ì…ë ¥í•œë‹¤. (ëœë¤ or ì¸ê³µì§€ëŠ¥)
 
-		// ÄÄÇ»ÅÍ°¡ ¼ıÀÚ Ä«µå ÀÎµ¦½º¸¦ ¼±ÅÃÇÑ´Ù. (»ÌÀº Ä«µå Á¦¿Ü)
-		// ÄÄÇ»ÅÍ°¡ ¼ıÀÚ Ä«µå¸¦ È¹µæÇÑ´Ù.
-		// ÄÄÇ»ÅÍ°¡ ¹èÆÃÇÒ ±İ¾×À» ÀÔ·ÂÇÑ´Ù. (·£´ı or ÀÎ°øÁö´É)
-
-		// [2ÅÏ]
-		// ÇÃ·¹ÀÌ¾î°¡ ¿¬»ê Ä«µå ÀÎµ¦½º¸¦ ¼±ÅÃÇÑ´Ù. (»ÌÀº Ä«µå Á¦¿Ü)
+		// [2í„´]
+		// í”Œë ˆì´ì–´ê°€ ì—°ì‚° ì¹´ë“œ ì¸ë±ìŠ¤ë¥¼ ì„ íƒí•œë‹¤. (ë½‘ì€ ì¹´ë“œ ì œì™¸)
 		//g_Card.SelectOperatorCard(int index);		
-		// ÇÃ·¹ÀÌ¾î°¡ ¿¬»ê Ä«µå¸¦ È¹µæÇÑ´Ù.
-		// ÇÃ·¹ÀÌ¾î°¡ »ÌÀº ¿¬»ê Ä«µåÀÇ ±âÈ£¸¦ Ãâ·ÂÇÑ´Ù.
-		// ÇÃ·¹ÀÌ¾î°¡ Batting/Die¸¦ ¼±ÅÃÇÑ´Ù.
-		// ÇÃ·¹ÀÌ¾î°¡ ¹èÆÃÇÒ ±İ¾×À» ÀÔ·ÂÇÑ´Ù.
+		// í”Œë ˆì´ì–´ê°€ ì—°ì‚° ì¹´ë“œë¥¼ íšë“í•œë‹¤.
+		// í”Œë ˆì´ì–´ê°€ ë½‘ì€ ì—°ì‚° ì¹´ë“œì˜ ê¸°í˜¸ë¥¼ ì¶œë ¥í•œë‹¤.
+		// í”Œë ˆì´ì–´ê°€ Batting/Dieë¥¼ ì„ íƒí•œë‹¤.
+		// í”Œë ˆì´ì–´ê°€ ë°°íŒ…í•  ê¸ˆì•¡ì„ ì…ë ¥í•œë‹¤.
 
-		// ÄÄÇ»ÅÍ°¡ ¿¬»ê Ä«µå ÀÎµ¦½º¸¦ ¼±ÅÃÇÑ´Ù. (»ÌÀº Ä«µå Á¦¿Ü)
-		// ÄÄÇ»ÅÍ°¡ ¿¬»ê Ä«µå¸¦ È¹µæÇÑ´Ù.
-		// ÄÄÇ»ÅÍ°¡ Batting/Die¸¦ ¼±ÅÃÇÑ´Ù.
-		// ÄÄÇ»ÅÍ°¡ ¹èÆÃÇÒ ±İ¾×À» ÀÔ·ÂÇÑ´Ù. (·£´ı or ÀÎ°øÁö´É)
+		// ì»´í“¨í„°ê°€ ì—°ì‚° ì¹´ë“œ ì¸ë±ìŠ¤ë¥¼ ì„ íƒí•œë‹¤. (ë½‘ì€ ì¹´ë“œ ì œì™¸)
+		// ì»´í“¨í„°ê°€ ì—°ì‚° ì¹´ë“œë¥¼ íšë“í•œë‹¤.
+		// ì»´í“¨í„°ê°€ Batting/Dieë¥¼ ì„ íƒí•œë‹¤.
+		// ì»´í“¨í„°ê°€ ë°°íŒ…í•  ê¸ˆì•¡ì„ ì…ë ¥í•œë‹¤. (ëœë¤ or ì¸ê³µì§€ëŠ¥)
 
-		// [3ÅÏ]
-		// ÇÃ·¹ÀÌ¾î°¡ ¼ıÀÚ Ä«µå ÀÎµ¦½º¸¦ ¼±ÅÃÇÑ´Ù. (»ÌÀº Ä«µå Á¦¿Ü)
-		// ÇÃ·¹ÀÌ¾î°¡ ¼ıÀÚ Ä«µå¸¦ È¹µæÇÑ´Ù.
-		// ÇÃ·¹ÀÌ¾î°¡ »ÌÀº ¼ıÀÚ Ä«µåÀÇ ¹øÈ£¸¦ Ãâ·ÂÇÑ´Ù.
-		// ÇÃ·¹ÀÌ¾î°¡ Batting/Die¸¦ ¼±ÅÃÇÑ´Ù.
-		// ÇÃ·¹ÀÌ¾î°¡ ¹èÆÃÇÒ ±İ¾×À» ÀÔ·ÂÇÑ´Ù.
+		// [3í„´]
+		// í”Œë ˆì´ì–´ê°€ ìˆ«ì ì¹´ë“œ ì¸ë±ìŠ¤ë¥¼ ì„ íƒí•œë‹¤. (ë½‘ì€ ì¹´ë“œ ì œì™¸)
+		// í”Œë ˆì´ì–´ê°€ ìˆ«ì ì¹´ë“œë¥¼ íšë“í•œë‹¤.
+		// í”Œë ˆì´ì–´ê°€ ë½‘ì€ ìˆ«ì ì¹´ë“œì˜ ë²ˆí˜¸ë¥¼ ì¶œë ¥í•œë‹¤.
+		// í”Œë ˆì´ì–´ê°€ Batting/Dieë¥¼ ì„ íƒí•œë‹¤.
+		// í”Œë ˆì´ì–´ê°€ ë°°íŒ…í•  ê¸ˆì•¡ì„ ì…ë ¥í•œë‹¤.
 
-		// ÄÄÇ»ÅÍ°¡ ¼ıÀÚ Ä«µå ÀÎµ¦½º¸¦ ¼±ÅÃÇÑ´Ù. (»ÌÀº Ä«µå Á¦¿Ü)
-		// ÄÄÇ»ÅÍ°¡ ¼ıÀÚ Ä«µå¸¦ È¹µæÇÑ´Ù.
-		// ÄÄÇ»ÅÍ°¡ Batting/Die¸¦ ¼±ÅÃÇÑ´Ù.
-		// ÄÄÇ»ÅÍ°¡ ¹èÆÃÇÒ ±İ¾×À» ÀÔ·ÂÇÑ´Ù. (·£´ı or ÀÎ°øÁö´É)
+		// ì»´í“¨í„°ê°€ ìˆ«ì ì¹´ë“œ ì¸ë±ìŠ¤ë¥¼ ì„ íƒí•œë‹¤. (ë½‘ì€ ì¹´ë“œ ì œì™¸)
+		// ì»´í“¨í„°ê°€ ìˆ«ì ì¹´ë“œë¥¼ íšë“í•œë‹¤.
+		// ì»´í“¨í„°ê°€ Batting/Dieë¥¼ ì„ íƒí•œë‹¤.
+		// ì»´í“¨í„°ê°€ ë°°íŒ…í•  ê¸ˆì•¡ì„ ì…ë ¥í•œë‹¤. (ëœë¤ or ì¸ê³µì§€ëŠ¥)
 
-		// [4ÅÏ]
-		// ÇÃ·¹ÀÌ¾î°¡ Batting/Die¸¦ ¼±ÅÃÇÑ´Ù.
-		// ÇÃ·¹ÀÌ¾î°¡ ¹èÆÃÇÒ ±İ¾×À» ÀÔ·ÂÇÑ´Ù.
-		// ÄÄÇ»ÅÍ°¡ Batting/Die¸¦ ¼±ÅÃÇÑ´Ù.
-		// ÄÄÇ»ÅÍ°¡ ¹èÆÃÇÒ ±İ¾×À» ÀÔ·ÂÇÑ´Ù. (·£´ı or ÀÎ°øÁö´É)
+		// [4í„´]
+		// í”Œë ˆì´ì–´ê°€ Batting/Dieë¥¼ ì„ íƒí•œë‹¤.
+		// í”Œë ˆì´ì–´ê°€ ë°°íŒ…í•  ê¸ˆì•¡ì„ ì…ë ¥í•œë‹¤.
+		// ì»´í“¨í„°ê°€ Batting/Dieë¥¼ ì„ íƒí•œë‹¤.
+		// ì»´í“¨í„°ê°€ ë°°íŒ…í•  ê¸ˆì•¡ì„ ì…ë ¥í•œë‹¤. (ëœë¤ or ì¸ê³µì§€ëŠ¥)
 
-		// [°á°ú]
-		// ÇÃ·¹ÀÌ¾î/ÄÄÇ»ÅÍ ½ÂÆĞ ¿©ºÎ¸¦ Ãâ·ÂÇÑ´Ù.
-		// ¹èÆÃÇÑ ÃÑ ±İ¾×À» ½ÂÀÚ¿¡°Ô Áö±ŞÇÑ´Ù.
-		// ÇÃ·¹ÀÌ¾î/ÄÄÇ»ÅÍ Áß ÃÑ ¼ÒÁö ±İ¾×ÀÇ 10%°¡ 10¿ø ÀÌÇÏÀÏ °æ¿ì °ÔÀÓÀ» °­Á¦ Á¾·áÇÑ´Ù.
+		// [ê²°ê³¼]
+		// í”Œë ˆì´ì–´/ì»´í“¨í„° ìŠ¹íŒ¨ ì—¬ë¶€ë¥¼ ì¶œë ¥í•œë‹¤.
+		// ë°°íŒ…í•œ ì´ ê¸ˆì•¡ì„ ìŠ¹ìì—ê²Œ ì§€ê¸‰í•œë‹¤.
+		// í”Œë ˆì´ì–´/ì»´í“¨í„° ì¤‘ ì´ ì†Œì§€ ê¸ˆì•¡ì˜ 10%ê°€ 10ì› ì´í•˜ì¼ ê²½ìš° ê²Œì„ì„ ê°•ì œ ì¢…ë£Œí•œë‹¤.
 	}
 }
 
-void GameFrameWork::SelectCard(Player player)
-{
-
-	return;
-}
+//void GameFrameWork::SelectCard(Player player)
+//{
+//
+//	return;
+//}

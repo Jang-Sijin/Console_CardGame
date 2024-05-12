@@ -21,8 +21,28 @@ Card::Card()
 
 int Card::SelectNumberCard(int index)
 {
+	--index;
+
 	if (card_number[index].selected == false)
+	{
+		card_number[index].selected = true;
+
 		return card_number[index].value;
+	}
+	else
+		return 0;
+}
+
+int Card::SelectOperatorCard(int index)
+{
+	--index;
+
+	if (card_operator[index].selected == false)
+	{
+		card_operator[index].selected = true;
+
+		return card_operator[index].value;
+	}
 	else
 		return 0;
 }

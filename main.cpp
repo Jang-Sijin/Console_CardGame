@@ -1,4 +1,4 @@
-#include "Define.h"
+#include "GameFrameWork.h"
 
 static GameFrameWork g_GameFrameWoke{};
 

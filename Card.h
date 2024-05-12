@@ -1,8 +1,12 @@
 #pragma once
-
-#include "Define.h"
 #include <random>
+#include <iostream>
 using namespace std;
+
+#define MIN_COUNT_CARD_NUMBER 1
+#define MAX_COUNT_CARD_NUMBER 10
+#define MIN_COUNT_CARD_OPERATOR 1
+#define MAX_COUNT_CARD_OPERATOR 4
 
 template <typename T>
 struct OneCard
@@ -16,7 +20,8 @@ class Card
 {
 public:
 	Card();                                                                 // 기본 생성자    
-    int SelectNumberCard(int index);                                        // 숫자 카드 선택, 반환 0일시 선택 불가 index
+    int SelectNumberCard(int index);                                        // 숫자 카드 선택, 반환 값 0일 경우 선택 불가
+    int SelectOperatorCard(int index);                                      // 연산 카드 선택, 반환 값 0일 경우 선택 불가
     void AllCardShuffle();                                                  // 모든 카드 셔플
     void AllPrint();                                                        // 모든 카드 출력   
     inline OneCard<int>* GetNumberCard() { return card_number; };           // 모든 숫자 카드 반환
@@ -27,10 +32,10 @@ public:
 
         for (int index = 0; index < count; ++index)
         {
-            if (card->selected == false)
+            if (card[index].selected == false)
                 cout << " X |";
             else
-                cout << card->value << "|";
+                cout << card[index].value << "|";
         }
         cout << endl;
 
