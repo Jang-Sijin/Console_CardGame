@@ -20,6 +20,7 @@ class Card
 {
 public:
 	Card();                                                                 // 기본 생성자    
+    void ReStart();
     int SelectNumberCard(int index);                                        // 숫자 카드 선택, 반환 값 0일 경우 선택 불가
     int SelectOperatorCard(int index);                                      // 연산 카드 선택, 반환 값 0일 경우 선택 불가
     void AllCardShuffle();                                                  // 모든 카드 셔플

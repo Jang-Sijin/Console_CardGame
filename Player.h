@@ -9,6 +9,7 @@ class Player
 public:
 	Player() {};
 public:
+	inline int GetMoney() { return money; };
 	virtual bool SelectGetCard(int turn, int get_card_number);
 	virtual bool InputBettingMoney(int betting_money, int& total_betting_money);
 protected:

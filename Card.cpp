@@ -19,6 +19,27 @@ Card::Card()
 	}
 }
 
+void Card::ReStart()
+{
+	for (int index = 0; index < MAX_COUNT_CARD_NUMBER; ++index)
+	{
+		card_number[index].value = index + 1;
+		card_number[index].selected = false;
+	}
+
+	card_operator[0].value = '*';
+	card_operator[1].value = '/';
+	card_operator[2].value = '+';
+	card_operator[3].value = '-';
+
+	for (int index = 0; index < MAX_COUNT_CARD_OPERATOR; ++index)
+	{
+		card_operator[index].selected = false;
+	}
+
+	AllCardShuffle();
+}
+
 int Card::SelectNumberCard(int index)
 {
 	--index;

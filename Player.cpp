@@ -7,11 +7,13 @@ bool Player::SelectGetCard(int turn, int get_card_number)
 	switch (turn)
 	{
 	case 1:
-	case 3:
-		selected_value_card[turn - 1] = get_card_number;
+		selected_value_card[0] = get_card_number;
 		break;
 	case 2:
-		selected_operator_card[turn - 1] = get_card_number;		
+		selected_operator_card[0] = get_card_number;
+		break;
+	case 3:
+		selected_value_card[1] = get_card_number;
 		break;
 	default:
 		return false;
