@@ -23,6 +23,8 @@ void GameFrameWork::Update()
 {
 	while (true)
 	{
+		system("cls");
+
 		cout << turn << "번째 턴입니다." << endl;	
 
 		int input_index{};
@@ -30,8 +32,10 @@ void GameFrameWork::Update()
 		char get_card_operator{};
 		int input_money{};
 
+		GotoScreenXY(0, 4);
 		cout << "Player 소지 금액: " << g_User.GetMoney() << "\t\t\t" << "Computer 소지 금액: " << g_Computer.GetMoney() << endl;
 
+		GotoScreenXY(0, 5);
 		switch (turn)
 		{
 		case Turn::INIT:
@@ -51,6 +55,7 @@ void GameFrameWork::Update()
 
 			if (g_User.SelectGetCard(turn, get_card_number))
 			{
+				GotoScreenXY(0, 5);
 				g_Card.PrintCard(g_Card.GetNumberCard(), MAX_COUNT_CARD_NUMBER);
 			}
 			else
@@ -101,6 +106,7 @@ void GameFrameWork::Update()
 
 			if (g_User.SelectGetCard(turn, get_card_operator))
 			{
+				GotoScreenXY(0, 5);
 				g_Card.PrintCard(g_Card.GetOperatorCard(), MAX_COUNT_CARD_OPERATOR);
 			}
 			else
@@ -153,6 +159,7 @@ void GameFrameWork::Update()
 
 			if (g_User.SelectGetCard(turn, get_card_number))
 			{
+				GotoScreenXY(0, 5);
 				g_Card.PrintCard(g_Card.GetNumberCard(), MAX_COUNT_CARD_NUMBER);
 			}
 			else
@@ -261,4 +268,14 @@ void GameFrameWork::Update()
 		// 배팅한 총 금액을 승자에게 지급한다.
 		// 플레이어/컴퓨터 중 총 소지 금액의 10%가 10원 이하일 경우 게임을 강제 종료한다.
 	}
+}
+
+void GameFrameWork::GotoScreenXY(int x, int y)
+{
+
+	COORD coord; // 커서 위치를 나타내는 COORD 구조체
+	coord.X = x; // X 좌표 설정
+	coord.Y = y; // Y 좌표 설정
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); // 커서 이동
+
 }

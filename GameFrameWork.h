@@ -1,6 +1,8 @@
 #pragma once
+#define NOMINMAX
 #include "Define.h"
 #include <iostream>
+#include <windows.h>
 
 enum Turn
 {
@@ -19,7 +21,7 @@ public:
 	void virtual Start();
 	void virtual Update();
 private:
-	//void SelectCard(Player player);
+	void GotoScreenXY(int x, int y);
 private:
 	int turn{UNKNOWN};
 	int total_betting_money{ 0 };
