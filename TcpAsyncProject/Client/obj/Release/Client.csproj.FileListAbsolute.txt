@@ -1,0 +1,11 @@
+C:\Users\KGA\Desktop\프로젝트\테스트\TcpAsyncProject\Client\bin\Release\Client.exe.config
+C:\Users\KGA\Desktop\프로젝트\테스트\TcpAsyncProject\Client\bin\Release\Client.exe
+C:\Users\KGA\Desktop\프로젝트\테스트\TcpAsyncProject\Client\bin\Release\Client.pdb
+C:\Users\KGA\Desktop\프로젝트\테스트\TcpAsyncProject\Client\obj\Release\Client.csproj.AssemblyReference.cache
+C:\Users\KGA\Desktop\프로젝트\테스트\TcpAsyncProject\Client\obj\Release\Client.csproj.CoreCompileInputs.cache
+C:\Users\KGA\Desktop\프로젝트\테스트\TcpAsyncProject\Client\obj\Release\Client.exe
+C:\Users\KGA\Desktop\프로젝트\테스트\TcpAsyncProject\Client\obj\Release\Client.pdb
+C:\Users\KGA\Desktop\프로젝트\테스트\TcpAsyncProject\Client\bin\Release\Client.exe.manifest
+C:\Users\KGA\Desktop\프로젝트\테스트\TcpAsyncProject\Client\bin\Release\Client.application
+C:\Users\KGA\Desktop\프로젝트\테스트\TcpAsyncProject\Client\obj\Release\Client.exe.manifest
+C:\Users\KGA\Desktop\프로젝트\테스트\TcpAsyncProject\Client\obj\Release\Client.application
